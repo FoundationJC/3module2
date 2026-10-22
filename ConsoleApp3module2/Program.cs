@@ -99,6 +99,20 @@ namespace ConsoleApp3module2
 
             Console.WriteLine("\n=== БІНАРНЕ ДЕРЕВО (preorder) ===");
 
+            // Створюємо чисті об'єкти спеціально для дерева (6 штук)
+            var treeItems = new List<Strings>
+            {
+                new Strings("Alpha", 3, true),
+                new Strings("Beta", 3, true),
+                new Strings("Gamma", 3, true),
+                new Strings("Delta", 3, true),
+                new Strings("Epsilon", 3, true),
+                new Strings("Zeta", 3, true)
+            };
+      
+
+            
+            
             // Створюємо дерево з компаратором
             var tree = new BinaryTree<Strings>(new StringsComparer());
 

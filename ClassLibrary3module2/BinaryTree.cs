@@ -25,7 +25,7 @@ namespace ClassLibrary3module2
             root = AddRecursive(root, item);
         }
 
-        private BinaryTreeNode<T> AddRecursive(BinaryTreeNode<T> node, T item)
+        private BinaryTreeNode<T> AddRecursive(BinaryTreeNode<T>? node, T item)
         {
             if (node == null)
                 return new BinaryTreeNode<T>(item);
@@ -51,7 +51,7 @@ namespace ClassLibrary3module2
         }
 
         // Прямий порядок (preorder): вузол -> ліво -> право
-        private IEnumerable<T> PreOrder(BinaryTreeNode<T> node)
+        private IEnumerable<T> PreOrder(BinaryTreeNode<T>? node)
         {
             if (node == null) yield break;
 
