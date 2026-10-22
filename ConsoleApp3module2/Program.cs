@@ -1,0 +1,121 @@
+﻿using System;
+using System.Collections;      // для ArrayList
+using System.Collections.Generic; // для List<T>
+using ClassLibrary3module2;
+
+namespace ConsoleApp3module2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8; // для українських символів
+
+            // ========== ЗАВДАННЯ 1-2: МАСИВ, КОЛЕКЦІЇ ==========
+
+            // 1. Створення 6 об'єктів CryptoString (одні й ті самі для всіх структур!)
+            Strings[] stringsArray = new Strings[6]
+            {
+                new Strings("Hello", 3, true),
+                new Strings("World", 1, false),
+                new Strings("CSharp", 2, true),
+                new Strings("Programming", 4, true),
+                new Strings("Lab", 5, false),
+                new Strings("Work", 2, false)
+            };
+
+            // Демонстрація роботи з масивом
+            Console.WriteLine("=== РОБОТА З МАСИВОМ ===");
+            foreach (var s in stringsArray) s.Print();
+
+            // Оновлення елемента масиву (індексатор)
+            stringsArray[0].Encrypt(); // шифруємо перший рядок
+            Console.WriteLine("\nПісля шифрування першого елемента:");
+            stringsArray[0].Print();
+
+            // Пошук у масиві (лінійний пошук)
+            Console.WriteLine("\nПошук рядка з довжиною 3:");
+            foreach (var s in stringsArray)
+                if (s.Length == 3) { Console.WriteLine("Знайдено:"); s.Print(); break; }
+
+            // 2. Узагальнена колекція List<T>
+            Console.WriteLine("\n=== РОБОТА З List<T> ===");
+            List<Strings> list = new List<Strings>(stringsArray); // копіюємо з масиву
+
+            // Додавання
+            list.Add(new Strings("NewItem", 1, true));
+            Console.WriteLine($"Кількість елементів у List: {list.Count}");
+
+            // Видалення (видаляємо останній)
+            list.RemoveAt(list.Count - 1);
+
+            // Оновлення (змінюємо перший елемент)
+            list[0] = new Strings("Updated", 2, true);
+            list[0].Print();
+
+            // Пошук через предикат (лямбда-вираз)
+            var found = list.Find(s => s.Value.Contains("Sharp"));
+            if (found != null) { Console.WriteLine("Знайдено через Find:"); found.Print(); }
+
+            // Прохід foreach
+            Console.WriteLine("\nВсі елементи List:");
+            foreach (var s in list) s.Print();
+
+            // 3. Неузагальнена колекція ArrayList
+            Console.WriteLine("\n=== РОБОТА З ArrayList ===");
+            ArrayList arrayList = new ArrayList();
+
+            // Boxing для value types, але CryptoString — клас, тобто reference type
+            foreach (var s in stringsArray) arrayList.Add(s);
+
+            // Додавання
+            arrayList.Add(new Strings("ArrayListItem", 3, true));
+
+            // Видалення
+            arrayList.RemoveAt(0); // видаляємо перший
+
+            // Оновлення (потребує приведення типу!)
+            ((Strings)arrayList[0]).Encrypt(); // приводимо object до CryptoString
+
+            // Пошук (потрібен цикл з приведенням)
+            Console.WriteLine("\nПошук у ArrayList:");
+            foreach (Strings s in arrayList) // явне приведення у foreach
+            {
+                if (s.Length > 5) { s.Print(); break; }
+            }
+
+            // Порівняння: спробуємо додати "неправильний" тип у ArrayList
+            arrayList.Add("Це просто рядок, не CryptoString"); // ArrayList дозволяє!
+            Console.WriteLine($"\nArrayList містить {arrayList.Count} елементів (включно зі строкою)");
+            // А List<CryptoString> НЕ дозволив би це зробити — це головна відмінність!
+
+            // Видаляємо строку, щоб не ламати дерево
+            arrayList.RemoveAt(arrayList.Count - 1);
+
+            // ========== ЗАВДАННЯ 3-4: БІНАРНЕ ДЕРЕВО + ІТЕРАТОР ==========
+
+            Console.WriteLine("\n=== БІНАРНЕ ДЕРЕВО (preorder) ===");
+
+            // Створюємо дерево з компаратором
+            var tree = new BinaryTree<Strings>(new StringsComparer());
+
+            // Додаємо 6 об'єктів (ті самі, що й у масиві)
+            foreach (var s in stringsArray) tree.Add(s);
+
+            // Демонстрація обходу дерева через foreach (використовує наш ітератор!)
+            Console.WriteLine("Обхід дерева (прямий порядок):");
+            foreach (var s in tree)
+            {
+                s.Print();
+            }
+
+            // Додатково: сортування List через IComparable
+            Console.WriteLine("\nСортування List за довжиною (IComparable):");
+            list.Sort(); // використовує CompareTo з CryptoString
+            foreach (var s in list) s.Print();
+
+            Console.WriteLine("\nГотово! Натисніть будь-яку клавішу...");
+            Console.ReadKey();
+        }
+    }
+}
