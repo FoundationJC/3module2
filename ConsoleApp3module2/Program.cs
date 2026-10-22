@@ -33,6 +33,11 @@ namespace ConsoleApp3module2
             Console.WriteLine("\nПісля шифрування першого елемента:");
             stringsArray[0].Print();
 
+            Console.WriteLine("\nДешифруємо назад:");
+            stringsArray[0].Decrypt();
+            stringsArray[0].Print(); // знову "Hello"
+
+
             // Пошук у масиві (лінійний пошук)
             Console.WriteLine("\nПошук рядка з довжиною 3:");
             foreach (var s in stringsArray)
@@ -87,8 +92,21 @@ namespace ConsoleApp3module2
                 if (s.Length > 5) { s.Print(); break; }
             }
 
+            // Оновлення з безпечним приведенням
+            if (arrayList[0] is Strings second)   // is — перевіряє тип і приводить одночасно
+            {
+                second.Decrypt();
+            }
+
+            // Пошук (потрібен цикл з приведенням)
+            Console.WriteLine("\nПошук у ArrayList(Дешифрування):");
+            foreach (Strings s in arrayList) // явне приведення у foreach
+            {
+                if (s.Length > 5) { s.Print(); break; }
+            }
+
             // Порівняння: спробуємо додати "неправильний" тип у ArrayList
-            arrayList.Add("Це просто рядок, не CryptoString"); // ArrayList дозволяє!
+            arrayList.Add("Це просто рядок, не Strings"); // ArrayList дозволяє!
             Console.WriteLine($"\nArrayList містить {arrayList.Count} елементів (включно зі строкою)");
             // А List<CryptoString> НЕ дозволив би це зробити — це головна відмінність!
 
@@ -131,10 +149,22 @@ namespace ConsoleApp3module2
             treeItems[0].Encrypt();  // тепер Hello -> Khoor
             treeItems[0].Print();    // виведе "Khoor"
 
+            Console.WriteLine("\nДешифруємо назад:");
+            treeItems[0].Decrypt();
+            treeItems[0].Print(); // знову "Hello"
+
+
             // Додатково: сортування List через IComparable
             Console.WriteLine("\nСортування List за довжиною (IComparable):");
             list.Sort(); // використовує CompareTo з Strings
-            foreach (var s in list) s.Print();
+            foreach (var s in list)
+            {
+                s.Print();
+            }
+
+            Console.WriteLine("\nСортування List через IComparer:");
+            list.Sort(new StringsComparer()); // той самий порядок за довжиною
+
 
             Console.WriteLine("\nГотово! Натисніть будь-яку клавішу...");
             Console.ReadKey();
