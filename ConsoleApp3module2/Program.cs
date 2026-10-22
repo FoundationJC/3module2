@@ -102,12 +102,12 @@ namespace ConsoleApp3module2
             // Створюємо чисті об'єкти спеціально для дерева (6 штук)
             var treeItems = new List<Strings>
             {
-                new Strings("Alpha", 3, true),
-                new Strings("Beta", 3, true),
-                new Strings("Gamma", 3, true),
-                new Strings("Delta", 3, true),
-                new Strings("Epsilon", 3, true),
-                new Strings("Zeta", 3, true)
+                new Strings("Hello", 3, true),
+                new Strings("World", 3, true),
+                new Strings("CSharp", 3, true),
+                new Strings("Programming", 3, true),
+                new Strings("Lab", 3, true),
+                new Strings("Work", 3, true)
             };
       
 
@@ -117,7 +117,7 @@ namespace ConsoleApp3module2
             var tree = new BinaryTree<Strings>(new StringsComparer());
 
             // Додаємо 6 об'єктів (ті самі, що й у масиві)
-            foreach (var s in stringsArray) tree.Add(s);
+            foreach (var s in treeItems) tree.Add(s);
 
             // Демонстрація обходу дерева через foreach (використовує наш ітератор!)
             Console.WriteLine("Обхід дерева (прямий порядок):");
@@ -126,9 +126,14 @@ namespace ConsoleApp3module2
                 s.Print();
             }
 
+            // Додатково: зашифруємо перший елемент дерева, щоб показати, що методи працюють
+            Console.WriteLine("\nШифруємо 'Hello' у дереві:");
+            treeItems[0].Encrypt();  // тепер Hello -> Khoor
+            treeItems[0].Print();    // виведе "Khoor"
+
             // Додатково: сортування List через IComparable
             Console.WriteLine("\nСортування List за довжиною (IComparable):");
-            list.Sort(); // використовує CompareTo з CryptoString
+            list.Sort(); // використовує CompareTo з Strings
             foreach (var s in list) s.Print();
 
             Console.WriteLine("\nГотово! Натисніть будь-яку клавішу...");
