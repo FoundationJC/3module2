@@ -64,7 +64,7 @@ namespace ClassLibrary3module2
         public override string ToString() => $"\"{Value}\" (довжина {Length})";
 
         // Реалізація IComparable<CryptoString> для сортування за довжиною
-        public int CompareTo(Strings other)
+        public int CompareTo(Strings? other)
         {
             if (other == null) return 1;
             return this.Length.CompareTo(other.Length); // порівняння за довжиною

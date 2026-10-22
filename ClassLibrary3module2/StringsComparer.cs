@@ -9,7 +9,7 @@ namespace ClassLibrary3module2
     public class StringsComparer : IComparer<Strings>
     {
         // Порівнюємо за довжиною рядка
-        public int Compare(Strings x, Strings y)
+        public int Compare(Strings? x, Strings? y)
         {
             if (x == null && y == null) return 0;
             if (x == null) return -1;

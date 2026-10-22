@@ -74,8 +74,11 @@ namespace ConsoleApp3module2
             // Видалення
             arrayList.RemoveAt(0); // видаляємо перший
 
-            // Оновлення (потребує приведення типу!)
-            ((Strings)arrayList[0]).Encrypt(); // приводимо object до CryptoString
+            // Оновлення з безпечним приведенням
+            if (arrayList[0] is Strings first)   // is — перевіряє тип і приводить одночасно
+            {
+                first.Encrypt();
+            }
 
             // Пошук (потрібен цикл з приведенням)
             Console.WriteLine("\nПошук у ArrayList:");

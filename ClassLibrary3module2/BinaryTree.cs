@@ -9,8 +9,8 @@ namespace ClassLibrary3module2
 {
     public class BinaryTree<T> : IEnumerable<T> where T : class
     {
-        private BinaryTreeNode<T> root;
-        private IComparer<T> comparer;
+        private BinaryTreeNode<T>? root; // ? — корінь може бути відсутнім (порожнє дерево)
+        private IComparer<T> comparer; // readonly — задається лише в конструкторі
 
         // Конструктор приймає компаратор (щоб знати, як впорядковувати)
         public BinaryTree(IComparer<T> comparer)
